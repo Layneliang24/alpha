@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'main',
     'home',
     'post',
+    'captcha',
 ]
 
 MIDDLEWARE = [
