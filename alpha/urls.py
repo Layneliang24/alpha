@@ -1,21 +1,19 @@
-"""alpha URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-]
+                  path('admin/', admin.site.urls),
+                  path('captcha/', include('captcha.urls')),  # 图形验证码功能。要在主项目下添加。
+                  path(r'mdeditor/', include('mdeditor.urls')),  # 为实现markdown功能，不清楚有啥异常
+                  path('', include(('login.urls', 'login'), namespace='login')),  # 将路由分发给下面的app处理
+                  path('', include(('home.urls', 'home'), namespace='home')),
+                  path('', include(('post.urls', 'post'), namespace='post')),
+                  path('', include(('main.urls', 'main'), namespace='main')),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # 加上这句至关重要，不然照片不显示
+
+if settings.DEBUG:  # 添加媒体文件url,生产环境下使用
+    urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

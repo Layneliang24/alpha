@@ -17,7 +17,7 @@ SECRET_KEY = 'django-insecure-q1%g^d*&fo_w+2tf!s(l#q)g4u0pvruqnl^j8(2c5efr8khjlt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -50,7 +50,7 @@ ROOT_URLCONF = 'alpha.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -58,6 +58,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 加入这个之后，调用图片路径时可以使用{{ MEDIA_URL }}{{ object.img }}的方式拼接图片路径。
+                'django.template.context_processors.media',     # +
             ],
         },
     },
