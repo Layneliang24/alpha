@@ -1,7 +1,12 @@
 from pathlib import Path
+import os.path
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# 将campus文件夹加入到python的path中，以被python识别该目录下的app
+sys.path.insert(0, os.path.join(BASE_DIR, 'campus'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
