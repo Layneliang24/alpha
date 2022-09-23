@@ -60,7 +60,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 # 加入这个之后，调用图片路径时可以使用{{ MEDIA_URL }}{{ object.img }}的方式拼接图片路径。
-                'django.template.context_processors.media',     # +
+                'django.template.context_processors.media',  # +
             ],
         },
     },
@@ -120,3 +120,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 是否开启URL访问地址后面不为/跳转至带有/的路径的配置项
+APPEND_SLASH = True

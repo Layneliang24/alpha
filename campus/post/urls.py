@@ -6,8 +6,8 @@ app_name = 'post'
 
 urlpatterns = [
     re_path('^$', views.empty),  # 正则匹配必须用re_path
-    path('post/', views.post),
-    path('article/', views.article),
-    path('file/', views.file),
-    path('link/', views.link),
+    re_path('^post', views.post),
+    re_path('^article', views.article),
+    re_path('^file', views.file),
+    re_path('^link', views.link),
 ]
