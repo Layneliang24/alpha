@@ -6,8 +6,8 @@ app_name = 'login'
 
 urlpatterns = [
     re_path('^$', views.empty),  # 正则匹配必须用re_path
-    re_path('^login', views.login),
-    re_path('^register', views.register),
+    re_path('^login', views.Login.as_view()),
+    re_path('^register', views.Register.as_view()),
     re_path('^logout', views.logout),
     re_path('^confirm', views.confirm),
 ]
