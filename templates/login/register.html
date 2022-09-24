@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Register</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.min.css' %}">
+    <link href="{% static 'login/css/login.css' %}" rel="stylesheet"/>
+</head>
+<body>
+<!--写入自定义内容-->
+<div class="container">
+    <div class="col">
+        <form class="form-login" action="{% url 'login:register' %}" method="post">
+            {% if good_message %}
+            <div class="alert alert-success">{{ good_message }}</div>
+            {% elif bad_message%}
+            <div class="alert alert-danger">{{ bad_message }}</div>
+            {% endif %}
+            {% csrf_token %}
+            <h3 class="text-center">Welcome to Register!</h3>
+            {% for field in form %}
+            <div class="form-group">
+                {% if field.errors %}
+                    <div class="alert alert-danger">{{ field.errors }}</div>
+                {% endif %}
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+            {% endfor %}
+            <div>
+                <a href="{% url 'login:login' %}" class="text-success">
+                    <ins>Back</ins>
+                </a>
+                <button type="submit" class="btn btn-primary" id="login-button">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--自定义内容结束-->
+<script src="{% static 'jquery/jquery-3.6.1.min.js' %}"></script>
+<!--<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>-->
+<script src="{% static 'bootstrap-3.4.1-dist/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

@@ -1,13 +1,61 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>登录</title>
+    <title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'login/css/login.css' %}" rel="stylesheet"/>
 </head>
 <body>
-<div style="margin: 15% 40%;">
-    <h1>欢迎登录！</h1>
-    {{ form.as_p }}
-</div>
+<!--写入自定义内容-->
+<div class="container">
+    <div class="col">
+        <form class="form-login" action="{% url 'login:login' %}" method="post">
+            {% if message %}
+            <div class="alert alert-danger">{{ message }}</div>
+            {% endif %}
+            {% csrf_token %}
+            <h3 class="text-center">Login</h3>
+            {% for field in form %}
+            <div class="form-group">
+                {% if field.errors %}
+                <div class="alert alert-danger">{{ field.errors }}</div>
+                {% endif %}
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+            {% endfor %}
+            <div id="button">
+                <button type="submit" class="btn btn-primary" id="login-button">Login</button>
+            </div>
+            <br>
+            <div class="text-center">Don't have an account?
+                <a href="{% url 'login:register' %}" class="text-success">
+                    <ins>Sign up</ins>
+                </a>
+            </div>
+        </form>
+    </div>
+</div> <!-- /container -->
+
+<!--自定义内容结束-->
+<script src="{% static 'jquery/jquery-3.6.1.js' %}"></script>
+<script src="{% static 'bootstrap-3.4.1-dist/js/bootstrap.min.js' %}"></script>
+<script>
+    $('img.captcha').attr("title", "点击更换验证码");
+    $('img.captcha').click(function() {
+        $.getJSON('/captcha/refresh/',function(json) {
+            // This should update your captcha image src and captcha hidden input
+            console.log(json);
+            $("img.captcha").attr("src",json.image_url);
+            $("#id_captcha_0").val(json.key);
+        });
+        return false;
+    });
+
+
+</script>
 </body>
 </html>
