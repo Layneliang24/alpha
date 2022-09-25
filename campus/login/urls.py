@@ -8,6 +8,5 @@ urlpatterns = [
     re_path('^$', views.empty),  # 正则匹配必须用re_path
     re_path('^login', views.LoginView.as_view(), name='login'),
     re_path('^register', views.RegisterView.as_view(), name='register'),
-    re_path('^logout', views.logout),
     re_path('^confirm', views.confirm),
 ]

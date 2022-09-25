@@ -1,19 +1,42 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login</title>
+    <title>
+        {% block title %}
+        usebootstrap
+        {% endblock %}
+    </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-4.4.1-dist/css/bootstrap.min.css' %}">
+    <link href="{% static 'main/css/main.css' %}" rel="stylesheet"/>    <!--基础样式-->
+    {% block link %}
+    <!--自定义静态文件-->
+    {% endblock link %}
 </head>
 <body>
 <!--写入自定义内容-->
 
+{% block nav %} {# 开放接口，且命名为content #}
+<!--导航栏-->
+{% endblock nav %}
+
+{% block content %} {# 输入父模板的接口名字 #}
+<!--页面主内容-->
+{% endblock %}
+
+{% block footer_and_page %}
+<!--页码和页脚-->
+{% endblock footer_and_page %}
+
+{% block script %}
+<!--自定义脚本-->
+{% endblock script %}
 
 <!--自定义内容结束-->
 <script src="{% static 'jquery/jquery-3.6.1.min.js' %}"></script>
-<!--<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>-->
-<script src="{% static 'bootstrap-3.4.1-dist/js/bootstrap.min.js' %}"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="{% static 'bootstrap-4.4.1-dist/js/bootstrap.min.js' %}"></script>
 </body>
 </html>

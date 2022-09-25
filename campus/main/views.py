@@ -1,14 +1,29 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.contrib.auth import logout as sys_logout
+from django.views.generic import ListView
+from . import models
 
 
-# Create your views here.
 def empty(request):
-    return redirect("/main/index/")
+    return redirect("main:index")
 
 
-def index(request):
-    return HttpResponse("访问index")
+@login_required(login_url="login:login")
+def logout(request):
+    sys_logout(request)
+    return redirect('login:login')
+
+
+@method_decorator(login_required(login_url="login:login"), name='dispatch')
+# 将装饰器装饰到dispatch方法上，就相当于将装饰器装饰到该class的所有方法上
+class IndexView(ListView):
+    template_name = "main/index.html"
+    subcategory = models.SubCategory.objects.all()
+    context_object_name = ("maincategory")
+    model = models.MainCategory
 
 
 def categories(request):
@@ -29,5 +44,3 @@ def links(request):
 
 def search(request):
     return HttpResponse("搜索文章/文件/链接")
-
-

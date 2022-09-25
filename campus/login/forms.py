@@ -51,23 +51,23 @@ class UserRegisterForm(forms.ModelForm):
         if data.get('password') == data.get('confirm_password'):
             return data.get('password')
         else:
-            raise forms.ValidationError("passwords not same!")
+            raise forms.ValidationError("Passwords not same!")
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
         if len(username) < 3:
-            raise forms.ValidationError("your username must be at least 3 characters long")
+            raise forms.ValidationError("Your username must be at least 3 characters long")
         elif len(username) > 20:
-            raise forms.ValidationError("your username is too long")
+            raise forms.ValidationError("Your username is too long")
         else:
             filter_result = models.User.objects.filter(username__exact=username)
             if len(filter_result) > 0:
-                raise forms.ValidationError('your username already exists')
+                raise forms.ValidationError('Your username already exists')
         return username
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
         filter_result = models.User.objects.filter(email__exact=email)
         if len(filter_result) > 0:
-            raise forms.ValidationError("your email already exists")
+            raise forms.ValidationError("Your email already exists")
         return email

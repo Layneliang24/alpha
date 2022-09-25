@@ -1,15 +1,13 @@
+{% extends 'usebootstrap.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Login</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'login/css/login.css' %}" rel="stylesheet"/>
-</head>
-<body>
-<!--写入自定义内容-->
+
+{% block title %} Login {% endblock title %}
+
+{% block link %}
+<link href="{% static 'login/css/login.css' %}" rel="stylesheet"/>
+{% endblock link %}
+
+{% block content %}
 <div class="container">
     <div class="col">
         <form class="form-login" action="{% url 'login:login' %}" method="post">
@@ -39,10 +37,9 @@
         </form>
     </div>
 </div> <!-- /container -->
+{% endblock content %}
 
-<!--自定义内容结束-->
-<script src="{% static 'jquery/jquery-3.6.1.js' %}"></script>
-<script src="{% static 'bootstrap-3.4.1-dist/js/bootstrap.min.js' %}"></script>
+{% block script %}
 <script>
     $('img.captcha').attr("title", "点击更换验证码");
     $('img.captcha').click(function() {
@@ -54,8 +51,6 @@
         });
         return false;
     });
-
-
 </script>
-</body>
-</html>
+{% endblock script %}
+

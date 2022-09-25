@@ -48,6 +48,11 @@ max-height: 20px;
 width: 100%;
 }
 
+#register-button {
+margin-top: 10px;
+float: right;
+}
+
 #button{
 text-align: center;
 }

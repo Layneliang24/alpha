@@ -12,10 +12,6 @@ def empty(request):
     return redirect('/login/login')
 
 
-def logout(request):
-    return redirect('/login/')
-
-
 def confirm(request):
     return HttpResponse("用户确认页面")
 

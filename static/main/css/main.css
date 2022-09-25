@@ -1,0 +1,41 @@
+.navbar {
+position: sticky;
+top: 0;
+z-index: 1;
+}
+
+nav>a {
+    color: white;
+}
+
+.dropdown {
+    float: right;
+}
+
+.dropdown-menu {
+    padding: 0;
+}
+
+.list-group-item {
+    padding: 0;
+}
+
+nav>a {
+    color: white;
+}
+
+.nav-link {     /*主分类颜色*/
+    color: white;
+}
+
+#search_tool {
+    float: left;
+}
+
+#welcome {
+    color: white;
+}
+
+#logout {
+    color: rgba(188,0,0,0.5);
+}
