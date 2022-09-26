@@ -106,7 +106,7 @@ Welcome to layneblog!
         </div>
         <div class="card-body">
             <ul class="list-group">
-                {% for i in files %}
+                {% for i in file_list %}
                 <li class="list-group-item">
                     <div style="float: left">
                         {{ i.name }}
@@ -128,7 +128,7 @@ Welcome to layneblog!
             </div>
         </div>
         <div class="card-body">
-            {% for i in links %}
+            {% for i in link_list %}
             <i style="margin-top: 5px;">
                 <a href="{{ i.url }}">{{ i.name }}</a>
             </i><br/>

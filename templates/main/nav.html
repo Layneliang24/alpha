@@ -16,7 +16,7 @@
                aria-expanded="false" >{{ mcat.title }}</a>
             <div class="dropdown-menu">
                 {% for scat in subcategory %}
-                {% if scat.category == mcat %}
+                {% if scat.maincategory == mcat %}
                 <a class="dropdown-item" href="/browse_categories/?cat_id={{ cat.id }}">{{ scat.title }}</a>
                 {% endif %}
                 {% endfor %}
@@ -35,7 +35,7 @@
         </div>
         <div class="dropdown">
             <a class="nav-link dropdown-toggle" id='welcome' data-toggle="dropdown" role="button"
-               aria-haspopup="true" aria-expanded="false">{{ request.session.username }}, Welcome!</a>
+               aria-haspopup="true" aria-expanded="false">{{ user.username }}, Welcome!</a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
