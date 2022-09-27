@@ -1,0 +1,103 @@
+{% extends 'main/footer.html' %}
+{% load static %}
+
+<!---------------------------页面标题----------------------------->
+
+{% block title %}
+Welcome to layneblog!
+{% endblock %}
+
+<!---------------------------静态资源----------------------------->
+
+
+<!----------------------------页面内容---------------------------->
+
+{% block content %} {# 输入父模板的接口名字 #}
+
+<!-- content，文章列表部分 -->
+<div class="container shadow-sm overflow-auto" style="width:75%;max-height: 665px;margin-top:20px;padding:5px 20px;">
+    <!-- 列表循环 -->
+    {% for article in page %}
+    <!-- 文章内容 -->
+    <div class="border border-light row shadow p-3 mb-5 bg-white rounded" style="position: sticky;top: 0;">
+        <!-- 标题图 -->
+        <div class="col-3">
+            <img class="img-responsive"
+                 src="{{ article.avatar.url }}"
+                 alt="avatar" style="max-width:100%;max-height: 155px; border-radius: 20px">
+        </div>
+        <!--文字部分-->
+        <div class="col">
+            <!-- 栏目 -->
+            <a role="button" href="#" class="btn btn-sm mb-2 btn-warning">{{ article.category.title }}</a>
+            <!-- 标签 -->
+            <span>
+                        <a href="#" class="badge badge-secondary">{{ article.tag }}</a>
+                </span>
+            <!--标题-->
+            <h4>
+                <b><a href="/browse_articles/?cat_id={{ article.category.id }}&article_id={{ article.id }}"
+                      style="color: black;">
+                    {{ article.title }}</a></b>
+            </h4>
+            <!--摘要-->
+            <div>
+                <p style="color: gray;">
+                    {{ article.summary }}
+                </p>
+            </div>
+            <small>浏览：{{ article.views }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                创建日期：{{ article.created|date:"Y-m-d" }}</small>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+<!----------------------------页码---------------------------->
+
+{% block footer_and_page %}
+
+<div class="container" style="width: 75%;padding:20px">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href='?cat_id={{ cat_id }}&page=1'>First</a></li>
+            {% if page.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?cat_id={{ cat_id }}&page={{ page.previous_page_number }}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% else %}
+            {% endif %}
+            {% for num in page_range %}
+            {% if num == page.number %}
+            <li class="page-item"><a class="page-link" href="#" style="color: red;">{{ num }}</a></li>
+            {% elif num == "..." %}
+            <li><i class="page-link">{{ num }}</i></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?cat_id={{ cat_id }}&page={{ num }}">{{ num }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if page.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?cat_id={{ cat_id }}&page={{ page.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+            <li class="page-item"><a class="page-link"
+                                     href="?cat_id={{ cat_id }}&page={{ paginator.num_pages }}">Last</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="footer mt-auto py-3 text-center">
+    <div class="container">
+        <span>Copyright @layne</span>
+    </div>
+</div>
+
+{% endblock footer_and_page %}

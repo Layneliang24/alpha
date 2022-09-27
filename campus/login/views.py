@@ -44,7 +44,7 @@ class LoginView(View, GetMethodMixin):  # 命名规范化，可继承复用
                 #     return render(request, self.template_name, locals())
                 # 将用户数据保存在 session 中，即实现了登录动作
                 login(request, user)
-                return redirect("main:index")       # 这里也可以使用url反查
+                return redirect("main:indexview")       # 这里也可以使用url反查
             else:
                 message = 'Username or password error!'
                 return render(request, self.template_name, locals())

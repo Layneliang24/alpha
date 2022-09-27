@@ -7,7 +7,7 @@
 {% block nav %}
 <!--导航栏-->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <a class="navbar-brand" href="{% url 'main:index' %}">HOME</a>
+    <a class="navbar-brand" href="{% url 'main:indexview' %}">HOME</a>
     <!-- 导航栏，文章分类部分-->
     <ul class="nav">
         {% for mcat in maincategory %}
@@ -17,7 +17,7 @@
             <div class="dropdown-menu">
                 {% for scat in subcategory %}
                 {% if scat.maincategory == mcat %}
-                <a class="dropdown-item" href="/browse_categories/?cat_id={{ cat.id }}">{{ scat.title }}</a>
+                <a class="dropdown-item" href="{% url 'main:categoryview' %}">{{ scat.title }}</a>
                 {% endif %}
                 {% endfor %}
             </div>

@@ -24,45 +24,76 @@ class NavView(View):
     def __init__(self):
         super().__init__()
         self.maincategory = models.MainCategory.objects.all()
+        self.subcategory = models.SubCategory.objects.all()
+        self.articles = models.Article.objects.all()
 
 
 @method_decorator(login_required(login_url="login:login"), name='dispatch')
 # 将装饰器装饰到dispatch方法上，就相当于将装饰器装饰到该class的所有方法上
-class IndexView(NavView):
-    def get(self, request):
-        maincategory = self.maincategory
-        subcategory = models.SubCategory.objects.all()
+class IndexView(NavView, ListView):
+    # 模板位置
+    template_name = 'main/index.html'
+
+    # 加上这一行，告知允许哪种请求方式
+    # http_method_names = ['GET', 'POST']
+
+    @staticmethod
+    def get_queryset():  # 重写get_queryset方法
         recommend = models.Article.objects.all().order_by('-views')[:8]
         link_list = models.Link.objects.all().order_by('-upload_time')[:13]
         file_list = models.File.objects.all().order_by('-upload_time')[:6]  # 获取最新的文件
         latest = models.Article.objects.all().order_by('-created')[:8]
-        context = {
-            'maincategory': maincategory,
-            'subcategory': subcategory,
-            'recommend' : recommend,
-            'link_list': link_list,
-            'file_list': file_list,
-            'latest': latest,
-        }
-        return render(request, 'main/index.html', context)
+        return locals()
 
-    def post(self, request):
-        keyword = request.GET.get('keyword')
-        if keyword:  # 获取搜索的关键词
-            article_list = models.Article.objects.filter(title__icontains=keyword)
-            page_num = request.GET.get('page')  # 使用request.GET.get()函数获取uri中的page参数的数值
-            paginator = Paginator(articles, 6)  # 设置一页显示多少条数据（articles为要分页的数据）
-            try:
-                page = paginator.page(page_num)  # 获取当前的Page对象，该对象有页码、内容列表等属性
-            except PageNotAnInteger:  # 如果用户输入的页码不是整数时,显示第1页的内容
-                page = paginator.page(1)
-            except (EmptyPage, InvalidPage):  # 如果用户输入的页数不在系统的页码列表中时,显示最后一页的内容
-                page = paginator.page(paginator.num_pages)
-            return render(request, 'main/search.html', locals())
+    def get_context_data(self, **kwargs):  # 重写get_context_data方法
+        # 很关键，必须把原方法的结果拿到
+        context = super().get_context_data(**kwargs)
+        context['maincategory'] = self.maincategory
+        context['subcategory'] = self.subcategory
+        context['recommend'] = self.get_queryset().get('recommend')
+        context['link_list'] = self.get_queryset().get('link_list')
+        context['file_list'] = self.get_queryset().get('file_list')  # 获取最新的文件
+        context['latest'] = self.get_queryset().get('latest')
+        return context
 
 
-def categories(request):
-    return HttpResponse("查看分类详情")
+@method_decorator(login_required(login_url="login:login"), name='dispatch')
+class CategoryView(NavView, ListView):
+    # 模板位置
+    template_name = 'main/category.html'
+
+    def get_queryset(self):  # 重写get_queryset方法
+        page_num = self.request.GET.get('page', 1)  # 使用request.GET.get()函数获取uri中的page参数的数值
+        paginator = Paginator(self.articles, 8)  # 设置一页显示多少条数据（articles为要分页的数据）
+        page_range = list(range(max(int(page_num) - 2, 1), int(page_num))) + list(
+            range(int(page_num), min(int(page_num) + 2, paginator.num_pages) + 1))
+        # 加上省略页码标记
+        if page_range[0] - 1 >= 2:
+            page_range.insert(0, '...')
+        if paginator.num_pages - page_range[-1] >= 2:
+            page_range.append('...')
+        # 加上首页和尾页
+        if page_range[0] != 1:
+            page_range.insert(0, 1)
+        if page_range[-1] != paginator.num_pages:
+            page_range.append(paginator.num_pages)
+        try:
+            page = paginator.page(page_num)  # 获取当前页码的记录
+        except PageNotAnInteger:  # 如果用户输入的页码不是整数时,显示第1页的内容
+            page = paginator.page(1)
+        except (EmptyPage, InvalidPage):  # 如果用户输入的页数不在系统的页码列表中时,显示最后一页的内容
+            page = paginator.page(paginator.num_pages)
+        return page, page_range
+
+    # 重写get_context_data方法
+    def get_context_data(self, **kwargs):
+        # 很关键，必须把原方法的结果拿到
+        context = super().get_context_data(**kwargs)
+        context['maincategory'] = self.maincategory
+        context['subcategory'] = self.subcategory
+        context['page'] = self.get_queryset()[0]
+        context['page_range'] = self.get_queryset()[1]
+        return context
 
 
 def articles(request):

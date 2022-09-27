@@ -6,8 +6,8 @@ app_name = 'main'
 
 urlpatterns = [
     re_path('^$', views.empty),  # 正则匹配必须用re_path
-    re_path('^index', views.IndexView.as_view(), name='index'),
-    re_path('^categories', views.categories),
+    re_path('^index', views.IndexView.as_view(), name='indexview'),
+    re_path('^categories', views.CategoryView.as_view(), name='categoryview'),
     re_path('^articles', views.articles),
     re_path('^files', views.files),
     re_path('^links', views.links),
