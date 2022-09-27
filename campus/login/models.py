@@ -24,7 +24,7 @@ class Profile(models.Model):
     c_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return 'user {}'.format(self.user.name)     # 这里与参考不一样
+        return self.user.username   # 这里与参考不一样
 
     class Meta:  # 元数据里定义用户按创建时间的反序排列，也就是最近的最先显示；尚未搞明白
         ordering = ["-c_time"]

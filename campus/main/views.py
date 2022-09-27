@@ -30,15 +30,21 @@ class NavView(View):
 # 将装饰器装饰到dispatch方法上，就相当于将装饰器装饰到该class的所有方法上
 class IndexView(NavView):
     def get(self, request):
-        # user = request.user
-        # maincategory = models.MainCategory.objects.all()
         maincategory = self.maincategory
         subcategory = models.SubCategory.objects.all()
         recommend = models.Article.objects.all().order_by('-views')[:8]
         link_list = models.Link.objects.all().order_by('-upload_time')[:13]
         file_list = models.File.objects.all().order_by('-upload_time')[:6]  # 获取最新的文件
         latest = models.Article.objects.all().order_by('-created')[:8]
-        return render(request, 'main/index.html', locals())
+        context = {
+            'maincategory': maincategory,
+            'subcategory': subcategory,
+            'recommend' : recommend,
+            'link_list': link_list,
+            'file_list': file_list,
+            'latest': latest,
+        }
+        return render(request, 'main/index.html', context)
 
     def post(self, request):
         keyword = request.GET.get('keyword')

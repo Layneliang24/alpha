@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'home',
     'post',
     'captcha',
+    'mdeditor',
 ]
 
 MIDDLEWARE = [

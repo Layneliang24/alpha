@@ -20,11 +20,11 @@
             <h3 class="text-center">Welcome to Register!</h3>
             {% for field in form %}
             <div class="form-group">
-                {% if field.errors %}
-                    <div class="alert alert-danger">{{ field.errors }}</div>
-                {% endif %}
                 {{ field.label_tag }}
                 {{ field }}
+                {% if field.errors %}
+                <div class="alert alert-danger" style="margin: 5px;padding 0px;">{{ field.errors }}</div>
+                {% endif %}
             </div>
             {% endfor %}
             <div>

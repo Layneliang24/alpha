@@ -15,7 +15,7 @@ class UserLoginForm(forms.Form):
         username = self.cleaned_data.get('username')
         filter_result = models.User.objects.filter(username__exact=username)
         if not filter_result:
-            raise forms.ValidationError('This username does not exist Please register first')
+            raise forms.ValidationError('Username not exist!')
         return username
 
 
