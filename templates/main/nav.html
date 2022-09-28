@@ -13,7 +13,7 @@
         {% for mcat in maincategory %}
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true"
-               aria-expanded="false" >{{ mcat.title }}</a>
+               aria-expanded="false">{{ mcat.title }}</a>
             <div class="dropdown-menu">
                 {% for scat in subcategory %}
                 {% if scat.maincategory == mcat %}
@@ -33,9 +33,20 @@
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
-        <div class="dropdown">
-            <a class="nav-link dropdown-toggle" id='welcome' data-toggle="dropdown" role="button"
-               aria-haspopup="true" aria-expanded="false">{{ user.username }}, Welcome!</a>
+        <div class="dropdown" style="width: 120px;margin-right: 20px;background-color: red">
+
+            <!--            <a class="nav-link dropdown-toggle" id='welcome' data-toggle="dropdown" role="button"-->
+            <!--            aria-haspopup="true" aria-expanded="false">{{ profile.nickname }}, Welcome!</a>-->
+            <!--            <a class="nav-link dropdown-toggle" id='welcome' data-toggle="dropdown" role="button"-->
+            <!--               aria-haspopup="true" aria-expanded="false">-->
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+               aria-haspopup="true"
+               aria-expanded="false">
+                <img class="rounded" src="{{ profile.portrait.url }}" alt="{{ ... }}"
+                     style="width: 30px;">
+            </a>
+
+
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">

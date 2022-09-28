@@ -7,6 +7,7 @@ from login.views import GetMethodMixin
 from django.views import View
 from django.views.generic import ListView
 from . import models
+from login import models as login_models
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 
 
@@ -43,6 +44,7 @@ class IndexView(NavView, ListView):
         link_list = models.Link.objects.all().order_by('-upload_time')[:13]
         file_list = models.File.objects.all().order_by('-upload_time')[:6]  # 获取最新的文件
         latest = models.Article.objects.all().order_by('-created')[:8]
+        profile = login_models.Profile.objects.get(id=2)
         return locals()
 
     def get_context_data(self, **kwargs):  # 重写get_context_data方法
@@ -54,6 +56,7 @@ class IndexView(NavView, ListView):
         context['link_list'] = self.get_queryset().get('link_list')
         context['file_list'] = self.get_queryset().get('file_list')  # 获取最新的文件
         context['latest'] = self.get_queryset().get('latest')
+        context['profile'] = self.get_queryset().get('profile')
         return context
 
 

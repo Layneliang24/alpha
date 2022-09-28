@@ -118,6 +118,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
+# media
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace("\\", "/")  # 指定图片上传目录
+MEDIA_URL = '/media/'  # 设置图片访问的统一路由，事关文章标题图
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
