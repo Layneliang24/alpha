@@ -15,7 +15,7 @@ class Profile(models.Model):
     # 电话号码字段，必填
     phone = models.CharField(max_length=20, blank=False)
     # 头像，可选，需要设置默认头像
-    portrait = models.ImageField(upload_to='portrait/%Y%m%d/', default='portrait/default.png', blank=True)
+    portrait = models.ImageField(upload_to='profile/portrait/%Y%m%d/', default='profile/portrait/default.png', blank=True)
     # 个人简介，可选
     resume = models.TextField(max_length=500, blank=True)
     # 是否已经邮件确认

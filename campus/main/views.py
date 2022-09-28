@@ -21,7 +21,7 @@ def logout(request):
     return redirect('login:login')
 
 
-class NavView(View):
+class NavView(ListView):
     def __init__(self):
         super().__init__()
         self.maincategory = models.MainCategory.objects.all()
@@ -31,20 +31,19 @@ class NavView(View):
 
 @method_decorator(login_required(login_url="login:login"), name='dispatch')
 # 将装饰器装饰到dispatch方法上，就相当于将装饰器装饰到该class的所有方法上
-class IndexView(NavView, ListView):
+class IndexView(NavView):
     # 模板位置
     template_name = 'main/index.html'
 
     # 加上这一行，告知允许哪种请求方式
     # http_method_names = ['GET', 'POST']
 
-    @staticmethod
-    def get_queryset():  # 重写get_queryset方法
+    def get_queryset(self):  # 重写get_queryset方法
+        profile = login_models.Profile.objects.get(user_id=self.request.user.id)
         recommend = models.Article.objects.all().order_by('-views')[:8]
         link_list = models.Link.objects.all().order_by('-upload_time')[:13]
         file_list = models.File.objects.all().order_by('-upload_time')[:6]  # 获取最新的文件
         latest = models.Article.objects.all().order_by('-created')[:8]
-        profile = login_models.Profile.objects.get(id=2)
         return locals()
 
     def get_context_data(self, **kwargs):  # 重写get_context_data方法
@@ -52,20 +51,21 @@ class IndexView(NavView, ListView):
         context = super().get_context_data(**kwargs)
         context['maincategory'] = self.maincategory
         context['subcategory'] = self.subcategory
+        context['profile'] = self.get_queryset().get('profile')
         context['recommend'] = self.get_queryset().get('recommend')
         context['link_list'] = self.get_queryset().get('link_list')
         context['file_list'] = self.get_queryset().get('file_list')  # 获取最新的文件
         context['latest'] = self.get_queryset().get('latest')
-        context['profile'] = self.get_queryset().get('profile')
         return context
 
 
 @method_decorator(login_required(login_url="login:login"), name='dispatch')
-class CategoryView(NavView, ListView):
+class CategoryView(NavView):
     # 模板位置
     template_name = 'main/category.html'
 
     def get_queryset(self):  # 重写get_queryset方法
+        profile = login_models.Profile.objects.get(user_id=self.request.user.id)
         page_num = self.request.GET.get('page', 1)  # 使用request.GET.get()函数获取uri中的page参数的数值
         paginator = Paginator(self.articles, 8)  # 设置一页显示多少条数据（articles为要分页的数据）
         page_range = list(range(max(int(page_num) - 2, 1), int(page_num))) + list(
@@ -86,7 +86,7 @@ class CategoryView(NavView, ListView):
             page = paginator.page(1)
         except (EmptyPage, InvalidPage):  # 如果用户输入的页数不在系统的页码列表中时,显示最后一页的内容
             page = paginator.page(paginator.num_pages)
-        return page, page_range
+        return locals()
 
     # 重写get_context_data方法
     def get_context_data(self, **kwargs):
@@ -94,8 +94,9 @@ class CategoryView(NavView, ListView):
         context = super().get_context_data(**kwargs)
         context['maincategory'] = self.maincategory
         context['subcategory'] = self.subcategory
-        context['page'] = self.get_queryset()[0]
-        context['page_range'] = self.get_queryset()[1]
+        context['profile'] = self.get_queryset().get('profile')
+        context['page'] = self.get_queryset().get('page')
+        context['page_range'] = self.get_queryset().get('page_range')
         return context
 
 
