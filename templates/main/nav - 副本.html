@@ -42,34 +42,42 @@
             </a>
             <!--用户下拉框-->
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                <!--以容器形式展现-->
-                <div style="margin-top: 16px;border-bottom: 1px solid #eeeeee">
-                    <div style="text-align: center;">
-                        <img class="rounded-circle" src="{{ profile.portrait.url }}" alt="None"
-                             style="width: 120px;height: 120px;">
-                    </div>
-                    <div style="text-align: center;line-height: 36px;font-size: 15px;">
-                        <span>{{ request.user.username }}</span>
-                    </div>
-                </div>
-                <br>
-                <div>
-                    <div>文章数量</div>
-                    <div>链接数量</div>
-                    <div>文件数量</div>
-                </div>
-                <div>
-                    <div>个人中心</div>
-                    <div>修改密码</div>
-                    <div>后台管理
-                        <div>
-                        </div>
-                        <div>
-                            <button>退出按钮</button>
-                        </div>
-                    </div>
-                </div>
+                <!--以列表形式展现-->
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a class="dropdown-item" href="/admin/">
+                            <b>Management</b>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a class="dropdown-item" href="/article_list/">
+                            <b>Article List</b>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a class="dropdown-item" href="/post/">
+                            <b>Post Article</b>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a class="dropdown-item" href="/post_file/">
+                            <b>Post File</b>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a class="dropdown-item" href="/post_link/">
+                            <b>Post Link</b>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a class="dropdown-item" id="logout" href="{% url 'main:logout' %}">
+                            <b>Logout</b>
+                        </a>
+                    </li>
+                </ul>
             </div>
+        </div>
+    </div>
 </nav>
 <!--内容接口-->
 {% endblock nav %}
