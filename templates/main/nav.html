@@ -53,20 +53,19 @@
                     </div>
                 </div>
                 <br>
-                <div>
-                    <div>文章数量</div>
-                    <div>链接数量</div>
-                    <div>文件数量</div>
+                <div class="row">
+                    <div class="col-md-4 text-center grid" style="font-size: 1px;background-color: red">文章</div>
+                    <div class="col-md-4 text-center grid" style="font-size: 1px;background-color: yellow">链接</div>
+                    <div class="col-md-4 text-center grid" style="font-size: 1px;background-color: blue">文件</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 text-center grid" style="font-size: 1px;">个人中心</div>
+                    <div class="col-md-4 text-center grid" style="font-size: 1px;">修改密码</div>
+                    <div class="col-md-4 text-center grid" style="font-size: 1px;">后台管理</div>
                 </div>
                 <div>
-                    <div>个人中心</div>
-                    <div>修改密码</div>
-                    <div>后台管理
-                        <div>
-                        </div>
-                        <div>
-                            <button>退出按钮</button>
-                        </div>
+                    <div class="border text-center">
+                        <a href="{% url 'login:login' %}">Exit</a>
                     </div>
                 </div>
             </div>
