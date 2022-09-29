@@ -46,8 +46,10 @@ Welcome to layneblog!
                     {{ article.summary }}
                 </p>
             </div>
-            <small>浏览：{{ article.views }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                创建日期：{{ article.created|date:"Y-m-d" }}</small>
+            <small><i class="fa fa-eye" style="color: green;margin-right: 5px"
+                      aria-hidden="true"></i>浏览：{{ article.views }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <i class="fa fa-calendar" style="color: pink;margin-right: 5px"
+                   aria-hidden="true"></i>创建日期：{{ article.created|date:"Y-m-d" }}</small>
         </div>
     </div>
     {% endfor %}

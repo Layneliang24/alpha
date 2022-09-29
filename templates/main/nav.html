@@ -3,7 +3,6 @@
 
 {% block title %} nav {% endblock title %}
 
-
 {% block nav %}
 <!--导航栏-->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -33,42 +32,63 @@
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
-        <div class="dropdown" style="width: 60px;margin-right: 10px;">
-            <!--头像照片-->
+        <div class="dropdown layne-dropdown">
+            <!--小头像照片-->
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                aria-haspopup="true" aria-expanded="false">
-                <img class="rounded-circle" src="{{ profile.portrait.url }}" alt="None"
-                     style="width: 30px;height: 30px;">
+                <img class="rounded-circle layne-portrait-small" src="{{ profile.portrait.url }}" alt="None">
             </a>
             <!--用户下拉框-->
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+            <div class="dropdown-menu dropdown-menu-right" id="layne-dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <!--以容器形式展现-->
-                <div style="margin-top: 16px;border-bottom: 1px solid #eeeeee">
+                <div style="margin-top: 10px;">
                     <div style="text-align: center;">
                         <img class="rounded-circle" src="{{ profile.portrait.url }}" alt="None"
-                             style="width: 120px;height: 120px;">
+                             style="width: 60px;height: 60px;">
                     </div>
                     <div style="text-align: center;line-height: 36px;font-size: 15px;">
                         <span>{{ request.user.username }}</span>
                     </div>
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-4 text-center grid" style="font-size: 1px;background-color: red">文章</div>
-                    <div class="col-md-4 text-center grid" style="font-size: 1px;background-color: yellow">链接</div>
-                    <div class="col-md-4 text-center grid" style="font-size: 1px;background-color: blue">文件</div>
+                <hr>
+                <div style="display: flex;">
+                    <div class="text-center layne-dropdown-menu-grid">
+                        <i class="fa fa-pencil-square-o layne-fa" aria-hidden="true"></i>
+                        <div class="text-center">my articles</div>
+                    </div>
+                    <div class="text-center layne-dropdown-menu-grid">
+                        <i class="fa fa-file layne-fa" aria-hidden="true"></i>
+                        <div class="text-center">my files</div>
+                    </div>
+                    <div class="text-center layne-dropdown-menu-grid">
+                        <i class="fa fa-link layne-fa" aria-hidden="true"></i>
+                        <div class="text-center">my links</div>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4 text-center grid" style="font-size: 1px;">个人中心</div>
-                    <div class="col-md-4 text-center grid" style="font-size: 1px;">修改密码</div>
-                    <div class="col-md-4 text-center grid" style="font-size: 1px;">后台管理</div>
+                <div style="display: flex">
+                    <div class="text-center layne-dropdown-menu-grid">
+                        <i class="fa fa-user-circle layne-fa" aria-hidden="true"></i>
+                        <div class="text-center">my profile</div>
+                    </div>
+                    <div class="text-center layne-dropdown-menu-grid">
+                        <i class="fa fa-key layne-fa" aria-hidden="true"></i>
+                        <div class="text-center">change pwd</div>
+                    </div>
+                    <div class="text-center layne-dropdown-menu-grid">
+                        <a href="/admin/"><i class="fa fa-user-secret layne-fa" aria-hidden="true"></i></a>
+                        <div class="text-center">management</div>
+                    </div>
                 </div>
-                <div>
-                    <div class="border text-center">
-                        <a href="{% url 'login:login' %}">Exit</a>
+                <div class="text-center">
+                    <div class="border  layne-dropdown-menu-exit">
+                        <a href="{% url 'login:login' %}">
+                            <i class="fa fa-sign-out" style="color: black" aria-hidden="true"></i>
+                            <b style="color: black">Exit</b></a>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 </nav>
 <!--内容接口-->
 {% endblock nav %}

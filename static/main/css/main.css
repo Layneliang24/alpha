@@ -39,3 +39,36 @@ nav>a {
 #logout {
     color: rgba(188,0,0,0.5);
 }
+
+/*用户下拉框*/
+.layne-dropdown {
+    width: 60px;
+    margin-right: 10px;
+}
+
+.layne-portrait-small {
+    width: 30px;
+    height: 30px;
+}
+
+#layne-dropdown-menu {
+    width: 250px;
+    height: 360px;
+    overflow: hidden;
+}
+
+.layne-dropdown-menu-grid {
+    width: 32%;
+    height: 80px;
+    margin: 3px;
+    font-size: 1px;
+}
+
+.layne-dropdown-menu-exit {
+    width: 75%;
+    margin: 10px auto;
+}
+
+.layne-fa {
+    font-size: 30px;
+}
