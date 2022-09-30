@@ -23,6 +23,9 @@ class GetMethodMixin:
 
     def get(self, request):
         form = self.form_class(initial=self.initial)
+        # 已登录用户不能再次登录
+        if request.user.id:
+            return redirect("main:indexview")
         return render(request, self.template_name, locals())
 
 

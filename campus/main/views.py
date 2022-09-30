@@ -12,7 +12,7 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnIn
 
 
 def empty(request):
-    return redirect("main:index")
+    return redirect("main:indexview")
 
 
 @login_required(login_url="login:login")

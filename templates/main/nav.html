@@ -46,7 +46,7 @@
                         <img class="rounded-circle" src="{{ profile.portrait.url }}" alt="None"
                              style="width: 60px;height: 60px;">
                     </div>
-                    <div style="text-align: center;line-height: 36px;font-size: 15px;">
+                    <div style="text-align: center;line-height: 36px;font-size: 1.5rem;">
                         <span>{{ request.user.username }}</span>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                 <div style="display: flex;">
                     <div class="text-center layne-dropdown-menu-grid">
                         <i class="fa fa-pencil-square-o layne-fa" aria-hidden="true"></i>
-                        <div class="text-center">my articles</div>
+                        <div class="text-center">my articles (1000)</div>
                     </div>
                     <div class="text-center layne-dropdown-menu-grid">
                         <i class="fa fa-file layne-fa" aria-hidden="true"></i>
@@ -80,11 +80,38 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <div class="border  layne-dropdown-menu-exit">
-                        <a href="{% url 'login:login' %}">
-                            <i class="fa fa-sign-out" style="color: black" aria-hidden="true"></i>
-                            <b style="color: black">Exit</b></a>
-                    </div>
+                    <form action="{% url 'main:logout' %}">
+<!--                        <button class="border layne-dropdown-menu-exit btn btn-outline-danger" type="submit">-->
+<!--                            <i class="fa fa-sign-out" style="color: black" aria-hidden="true"></i>-->
+<!--                            <b style="color: black">Exit</b>-->
+<!--                        </button>-->
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#exampleModalCenter">
+                            Launch demo modal
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="position: fixed;z-index: 99">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
