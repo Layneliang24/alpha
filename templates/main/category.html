@@ -32,13 +32,13 @@ Welcome to layneblog!
             <a role="button" href="#" class="btn btn-sm mb-2 btn-warning">{{ article.category.title }}</a>
             <!-- 标签 -->
             <span>
-                        <a href="#" class="badge badge-secondary">{{ article.tag }}</a>
-                </span>
+                <a href="#" class="badge badge-secondary">{{ article.tag }}</a>
+            </span>
             <!--标题-->
             <h4>
-                <b><a href="/browse_articles/?cat_id={{ article.category.id }}&article_id={{ article.id }}"
-                      style="color: black;">
-                    {{ article.title }}</a></b>
+                <b>
+                    <a href="{% url 'main:articleview' article.id %}" style="color: black;">{{ article.title }}</a>
+                </b>
             </h4>
             <!--摘要-->
             <div>
@@ -46,10 +46,14 @@ Welcome to layneblog!
                     {{ article.summary }}
                 </p>
             </div>
-            <small><i class="fa fa-eye" style="color: green;margin-right: 5px"
-                      aria-hidden="true"></i>浏览：{{ article.views }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <small>
+                <i class="fa fa-eye" style="color: mediumseagreen;margin-right: 5px"
+                   aria-hidden="true"></i>Browse: {{ article.views }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <i class="fa fa-user" style="color: skyblue;margin-right: 5px"
+                   aria-hidden="true"></i>Author: {{ article.author }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <i class="fa fa-calendar" style="color: pink;margin-right: 5px"
-                   aria-hidden="true"></i>创建日期：{{ article.created|date:"Y-m-d" }}</small>
+                   aria-hidden="true"></i>Created: {{ article.created|date:"Y-m-d" }}
+            </small>
         </div>
     </div>
     {% endfor %}
@@ -59,7 +63,7 @@ Welcome to layneblog!
 
 <!----------------------------页码---------------------------->
 
-{% block footer_and_page %}
+{% block page %}
 
 <div class="container" style="width: 75%;padding:20px">
     <nav aria-label="Page navigation example">
@@ -96,10 +100,4 @@ Welcome to layneblog!
         </ul>
     </nav>
 </div>
-<div class="footer mt-auto py-3 text-center">
-    <div class="container">
-        <span>Copyright @layne</span>
-    </div>
-</div>
-
-{% endblock footer_and_page %}
+{% endblock page %}

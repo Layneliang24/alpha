@@ -1,0 +1,98 @@
+{% extends 'main/footer.html' %}
+{% load static %}
+
+<!---------------------------页面标题----------------------------->
+
+{% block title %}
+Welcome to layneblog!
+{% endblock %}
+
+<!---------------------------静态资源----------------------------->
+
+
+<!----------------------------页面内容---------------------------->
+
+{% block content %} {# 输入父模板的接口名字 #}
+
+<!--文章全局-->
+<div class="col-12"
+     style="font-size: 18px;width: 90%;margin: 0 auto;padding-bottom: 0px;pxword-break: break-all;word-wrap: break-word;"
+     xmlns="http://www.w3.org/1999/html">
+    <!--width: 1000px;margin: 0 auto;让文章内容居中对齐-->
+    {% if message %}
+    <div class="alert alert-warning"><h3 style="margin: 0 auto;">{{ message }}</h3></div>
+    {% else %}
+    <!--文章定位-->
+    <div class="rounded"
+         style="margin-top: 20px;padding: 5px 0px;position:sticky;background-color: rgb(255 255 255 /0);">
+        <em><i>{{ article.category.category.title }} > <a
+                href="/browse_categories/?cat_id={{ article.category.id }}">
+            {{ article.category.title }}</a> > <a
+                href="/browse_articles/?cat_id={{ article.category.id }}&article_id={{ article.id }}">
+            {{ article.title }}</a></i></em>
+    </div>
+    <!--文章正文-->
+    <div style="width: 100%;display: grid;grid-template-columns: 19% 80%;grid-column-gap: 1%;">
+        <!--目录栏-->
+        <div class="pt-3 rounded"
+             style="height: min-content;margin-top: 20px;float: left;position: sticky;top: 105px;">
+            <p>Index: </p>
+            <i style="font-size: 0.5rem;">{{ toc | safe }}</i>
+        </div>
+        <!--文章内容-->
+        <div class="rounded" style="margin-top: 20px;">
+            {{ article.body | safe }}
+        </div>
+        {% endif %}
+    </div>
+    <!--附件下载-->
+    {% if files %}
+    <div class="border border-success shadow p-5 mb-5 bg-white rounded">
+        <h5>Downloads: </h5>
+        <hr/>
+        <ul>
+            {% for file in files %}
+            <li>
+                <p style="margin: 2px;"><small>
+                    {{ file.name }}
+                    <a href="/{{ file.path }}">[click here to download]</a>
+                </small></p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <hr>
+    <small><i>Created: {{ article.created|date:"Y-m-d" }}</i></small><br>
+    <small><i>Author: {{ article.author }}</i></small><br>
+    <small><i>Browse: {{ article.views }}</i></small>
+</div>
+
+{% endblock %}
+
+<!----------------------------页码---------------------------->
+
+{% block page %}
+
+<div style="width: 90%;padding: 5px 20px;margin: 0 auto;">
+    <!--上一篇&下一篇-->
+    <hr>
+    <div>
+        <div><b>Previous: </b>
+            {% if previous_article %}
+            <a href="/browse_articles/?article_id={{ previous_article.id }}">{{ previous_article }}</a>
+            {% else %}
+            None
+            {% endif %}
+        </div>
+        <div><b>Next: </b>
+            {% if next_article %}
+            <a href="/browse_articles/?article_id={{ next_article.id }}">{{ next_article }}</a>
+            {% else %}
+            None
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock page %}

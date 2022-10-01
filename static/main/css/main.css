@@ -30,6 +30,8 @@ nav>a {
 
 #search_tool {
     float: left;
+    margin: 2px auto;
+    padding: 0;
 }
 
 #welcome {
@@ -47,8 +49,8 @@ nav>a {
 }
 
 .layne-portrait-small {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
 }
 
 #layne-dropdown-menu {

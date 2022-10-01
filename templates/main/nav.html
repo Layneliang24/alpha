@@ -5,7 +5,7 @@
 
 {% block nav %}
 <!--导航栏-->
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark" style="z-index: 1111"> <!--z-index设置模态框层级，不然被遮盖-->
     <a class="navbar-brand" href="{% url 'main:indexview' %}">HOME</a>
     <!-- 导航栏，文章分类部分-->
     <ul class="nav">
@@ -47,22 +47,22 @@
                              style="width: 60px;height: 60px;">
                     </div>
                     <div style="text-align: center;line-height: 36px;font-size: 1.5rem;">
-                        <span>{{ request.user.username }}</span>
+                        <span>Hello, {{ request.user.username }}</span>
                     </div>
                 </div>
                 <hr>
                 <div style="display: flex;">
                     <div class="text-center layne-dropdown-menu-grid">
                         <i class="fa fa-pencil-square-o layne-fa" aria-hidden="true"></i>
-                        <div class="text-center">my articles (1000)</div>
+                        <div class="text-center">my articles ({{ user_article_count }})</div>
                     </div>
                     <div class="text-center layne-dropdown-menu-grid">
                         <i class="fa fa-file layne-fa" aria-hidden="true"></i>
-                        <div class="text-center">my files</div>
+                        <div class="text-center">my files ({{ user_file_count }})</div>
                     </div>
                     <div class="text-center layne-dropdown-menu-grid">
                         <i class="fa fa-link layne-fa" aria-hidden="true"></i>
-                        <div class="text-center">my links</div>
+                        <div class="text-center">my links ({{ user_link_count }})</div>
                     </div>
                 </div>
                 <div style="display: flex">
@@ -71,8 +71,8 @@
                         <div class="text-center">my profile</div>
                     </div>
                     <div class="text-center layne-dropdown-menu-grid">
-                        <i class="fa fa-key layne-fa" aria-hidden="true"></i>
-                        <div class="text-center">change pwd</div>
+                        <i class="fa fa-question-circle-o layne-fa" aria-hidden="true"></i>
+                        <div class="text-center">help</div>
                     </div>
                     <div class="text-center layne-dropdown-menu-grid">
                         <a href="/admin/"><i class="fa fa-user-secret layne-fa" aria-hidden="true"></i></a>
@@ -81,32 +81,30 @@
                 </div>
                 <div class="text-center">
                     <form action="{% url 'main:logout' %}">
-<!--                        <button class="border layne-dropdown-menu-exit btn btn-outline-danger" type="submit">-->
-<!--                            <i class="fa fa-sign-out" style="color: black" aria-hidden="true"></i>-->
-<!--                            <b style="color: black">Exit</b>-->
-<!--                        </button>-->
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#exampleModalCenter">
-                            Launch demo modal
+                        <button type="button" class="border layne-dropdown-menu-exit btn btn-outline-danger"
+                                data-toggle="modal" data-target="#exampleModalCenter">
+                            <i class="fa fa-sign-out" style="color: black" aria-hidden="true"></i>
+                            <b style="color: black">Exit</b>
                         </button>
                         <!-- Modal -->
                         <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog"
-                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="position: fixed;z-index: 99">
+                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                                        <h5 class="modal-title" id="exampleModalCenterTitle">Info</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        ...
+                                        <b>Are you sure you want to quit ? </b>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-                                        </button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">Stay</button>
+                                        <form action="{% url 'main:logout' %}">
+                                            <button type="submit" class="btn btn-danger">Quit</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

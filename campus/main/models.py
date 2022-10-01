@@ -49,7 +49,7 @@ class SubCategory(models.Model):
 # 博客文章
 class Article(models.Model):
     # 文章作者。参数on_delete 用于指定数据删除的方式，避免两个关联表数据不一致
-    author = models.ForeignKey(login_models.Profile, on_delete=models.CASCADE, default='layne')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default='layne')
     # 文章标题
     title = models.CharField(max_length=100, blank=False)
     # 文章标题图
