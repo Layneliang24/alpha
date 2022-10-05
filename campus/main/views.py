@@ -74,9 +74,14 @@ class IndexView(NavView, ListView):
 class CategoryView(NavView, ListView):
     # 模板位置
     template_name = 'main/category.html'
+    pk_url_kwarg = 'category_id'
 
     def get_queryset(self):  # 重写get_queryset方法
         # profile = login_models.Profile.objects.get(user_id=self.request.user.id)
+        self.articles = models.Article.objects.filter(category=self.request.GET.get('category', 7))
+        user_article_count = models.Article.objects.filter(author_id=self.request.user.id).count()
+        user_file_count = models.File.objects.filter(name=self.request.user.id).count()
+        user_link_count = models.Link.objects.filter(name=self.request.user.id).count()
         page_num = self.request.GET.get('page', 1)  # 使用request.GET.get()函数获取uri中的page参数的数值
         paginator = Paginator(self.articles, 8)  # 设置一页显示多少条数据（articles为要分页的数据）
         page_range = list(range(max(int(page_num) - 2, 1), int(page_num))) + list(
@@ -108,6 +113,9 @@ class CategoryView(NavView, ListView):
         context['profile'] = self.get_login_profile()
         context['page'] = self.get_queryset().get('page')
         context['page_range'] = self.get_queryset().get('page_range')
+        context['user_article_count'] = self.get_queryset().get('user_article_count', 0)
+        context['user_file_count'] = self.get_queryset().get('user_file_count', 0)
+        context['user_link_count'] = self.get_queryset().get('user_link_count', 0)
         return context
 
 
@@ -137,7 +145,7 @@ class ArticleView(NavView, DetailView):
         )
         article.body = md.convert(article.body)
         # 浏览量 +1
-        article.views += 1
+        article.views = article.views + 1
         article.save(update_fields=['views'])
         return article
 
@@ -153,6 +161,9 @@ class ArticleView(NavView, DetailView):
                                                                     category=self.get_object().category.id).last()
         context['next_article'] = models.Article.objects.filter(id__lt=self.get_object().id,
                                                                 category=self.get_object().category.id).first()
+        context['user_article_count'] = models.Article.objects.filter(author_id=self.request.user.id).count()
+        context['user_file_count'] = models.File.objects.filter(name=self.request.user.id).count()
+        context['user_link_count'] = models.Link.objects.filter(name=self.request.user.id).count()
         return context
 
 

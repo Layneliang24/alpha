@@ -16,7 +16,7 @@
             <div class="dropdown-menu">
                 {% for scat in subcategory %}
                 {% if scat.maincategory == mcat %}
-                <a class="dropdown-item" href="{% url 'main:categoryview' %}">{{ scat.title }}</a>
+                <a class="dropdown-item" href="{% url 'main:categoryview' %}/?category={{ scat.id }}">{{ scat.title }}</a>
                 {% endif %}
                 {% endfor %}
             </div>

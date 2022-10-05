@@ -10,6 +10,8 @@ class MainCategory(models.Model):
     title = models.CharField(max_length=100, blank=True)
     # 分类的创建时间
     created = models.DateTimeField(default=timezone.now())
+    # 创建人员
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default='admin')
 
     # admin站点信息 调试查看对象
     def __str__(self):
@@ -26,14 +28,15 @@ class SubCategory(models.Model):
     # 分类的创建时间
     created = models.DateTimeField(default=timezone.now())
     # 主分类
-    maincategory = models.ForeignKey(
+    category = models.ForeignKey(
         MainCategory,
         null=False,
         blank=False,
         on_delete=models.CASCADE,
-        related_name='maincategory',
+        related_name='category',
         default='1',
     )
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default='admin')
 
     # admin站点信息 调试查看对象
     def __str__(self):
@@ -49,7 +52,7 @@ class SubCategory(models.Model):
 # 博客文章
 class Article(models.Model):
     # 文章作者。参数on_delete 用于指定数据删除的方式，避免两个关联表数据不一致
-    author = models.ForeignKey(User, on_delete=models.CASCADE, default='layne')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default='admin')
     # 文章标题
     title = models.CharField(max_length=100, blank=False)
     # 文章标题图
@@ -97,6 +100,8 @@ class Article(models.Model):
 class File(models.Model):
     # 所关联的文章名称，利用文章名称作为外键
     article = models.ForeignKey(Article, on_delete=models.CASCADE, default='2', blank=True)
+    # 上传作者
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default='admin')
     # 文件名称
     name = models.CharField(max_length=200)
     # 文件保存路径
@@ -113,8 +118,12 @@ class File(models.Model):
 
 # 链接模型
 class Link(models.Model):
+    # 链接名
     name = models.CharField(max_length=200)
+    # 链接地址
     url = models.URLField(max_length=200, default=None)
+    # 上传作者
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default='admin')
     # 上传时间
     upload_time = models.DateTimeField(default=timezone.now)
 

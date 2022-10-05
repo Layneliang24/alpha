@@ -37,7 +37,7 @@ Welcome to layneblog!
                     </div>
                     <!--文章类目-->
                     <div class="article-category-recommend"><!--上下2，左右5-->
-                        <a class="badge badge-info" href="/browse_categories/?cat_id={{ i.category.id }}">
+                        <a class="badge badge-info" href="{% url 'main:categoryview' %}/?category={{ i.category.id }}">
                             {{ i.category.title }}
                         </a>
                     </div>
@@ -63,7 +63,8 @@ Welcome to layneblog!
                         </div>
                         <!--文章类目-->
                         <div style="margin: 5px 20px"><!--上下2，左右5-->
-                            <a class="badge badge-info" href="/browse_categories/?cat_id={{ i.category.id }}">
+                            <a class="badge badge-info"
+                               href="{% url 'main:categoryview' %}/?category={{ i.category.id }}">
                                 {{ latest.1.category.title }}
                             </a>
                         </div>
@@ -78,7 +79,8 @@ Welcome to layneblog!
                         </div>
                         <!--文章类目-->
                         <div class="article-category-latest"><!--上下2，左右5-->
-                            <a class="badge badge-info" href="/browse_categories/?cat_id={{ i.category.id }}">
+                            <a class="badge badge-info"
+                               href="{% url 'main:categoryview' %}/?category={{ i.category.id }}">
                                 {{ i.category.title }}
                             </a>
                         </div>
@@ -101,7 +103,8 @@ Welcome to layneblog!
         <div class="card-header">
             <div style="float: left"><b>Downloads</b></div>
             <div style="float: right">
-                <a href="/download/" style="color: grey"><i class="fa fa-hand-o-right" aria-hidden="true"></i>  More>>></a>
+                <a href="/download/" style="color: grey"><i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                    More>>></a>
             </div>
         </div>
         <div class="card-body">
@@ -124,7 +127,7 @@ Welcome to layneblog!
         <div class="card-header">
             <div style="float: left"><b>Links</b></div>
             <div style="float: right">
-                <a href="/link/" style="color: grey"><i class="fa fa-hand-o-right" aria-hidden="true"></i>  More>>></a>
+                <a href="/link/" style="color: grey"><i class="fa fa-hand-o-right" aria-hidden="true"></i> More>>></a>
             </div>
         </div>
         <div class="card-body">
