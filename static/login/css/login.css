@@ -2,16 +2,26 @@ body {
   height: 100%;
   background-image: url('../image/bg.jpg');
 }
+
+.container {            /*让块元素居中对齐*/
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .form-login {
   width: 100%;
   max-width: 330px;
   padding: 15px;
   margin: 0 auto;
 }
+
 .form-login{
   margin-top:80px;
   font-weight: 400;
 }
+
 .form-login .form-control {
   position: relative=
   box-sizing: border-box;
@@ -23,6 +33,7 @@ body {
 .form-login .form-control:focus {
   z-index: 2;
 }
+
 .form-login input[type="text"] {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;

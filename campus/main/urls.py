@@ -8,9 +8,10 @@ urlpatterns = [
     re_path('^$', views.empty),  # 正则匹配必须用re_path
     re_path('^index', views.IndexView.as_view(), name='indexview'),
     re_path('^categories', views.CategoryView.as_view(), name='categoryview'),
-    path('^articles/<int:id>/', views.ArticleView.as_view(), name='articleview'),
+    re_path('^articles/(?P<id>.*)', views.ArticleView.as_view(), name='articleview'),
     re_path('^files', views.files),
     re_path('^links', views.links),
-    re_path('^search', views.search),
+    re_path('^search', views.SearchView.as_view(), name='search'),
+    re_path('^visit/(?P<id>.*)', views.VisitView.as_view(), name='visitview'),
     re_path('^logout', views.logout, name='logout'),
 ]

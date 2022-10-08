@@ -9,13 +9,13 @@ class Profile(models.Model):
     # 与 User 模型构成一对一的关系
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     # 性别
-    gender = models.CharField(max_length=32, choices=gender_type, default="女")
+    gender = models.CharField(max_length=32, choices=gender_type, default="female")
     # 昵称，可选
     nickname = models.CharField(max_length=191, blank=True)
     # 电话号码字段，必填
     phone = models.CharField(max_length=20, blank=False)
     # 头像，可选，需要设置默认头像
-    portrait = models.ImageField(upload_to='profile/portrait/%Y%m%d/', default='profile/portrait/default.png', blank=True)
+    portrait = models.ImageField(upload_to='profile/portrait/%Y%m%d/', default='profile/portrait/default.png', blank=False)
     # 个人简介，可选
     resume = models.TextField(max_length=500, blank=True)
     # 是否已经邮件确认

@@ -15,8 +15,10 @@
                aria-expanded="false">{{ mcat.title }}</a>
             <div class="dropdown-menu">
                 {% for scat in subcategory %}
-                {% if scat.maincategory == mcat %}
-                <a class="dropdown-item" href="{% url 'main:categoryview' %}/?category={{ scat.id }}">{{ scat.title }}</a>
+                {% if scat.category == mcat %}
+                <a class="dropdown-item" href="{% url 'main:categoryview' %}/?category={{ scat.id }}">
+                    {{ scat.title }}
+                </a>
                 {% endif %}
                 {% endfor %}
             </div>
@@ -53,8 +55,11 @@
                 <hr>
                 <div style="display: flex;">
                     <div class="text-center layne-dropdown-menu-grid">
-                        <i class="fa fa-pencil-square-o layne-fa" aria-hidden="true"></i>
+                        <a href="{% url 'post:article' %}">
+                            <i class="fa fa-pencil-square-o layne-fa" aria-hidden="true"></i>
+                        </a>
                         <div class="text-center">my articles ({{ user_article_count }})</div>
+
                     </div>
                     <div class="text-center layne-dropdown-menu-grid">
                         <i class="fa fa-file layne-fa" aria-hidden="true"></i>
@@ -67,7 +72,9 @@
                 </div>
                 <div style="display: flex">
                     <div class="text-center layne-dropdown-menu-grid">
-                        <i class="fa fa-user-circle layne-fa" aria-hidden="true"></i>
+                        <a href="{% url 'home:center' %}">
+                            <i class="fa fa-user-circle layne-fa" aria-hidden="true"></i>
+                        </a>
                         <div class="text-center">my profile</div>
                     </div>
                     <div class="text-center layne-dropdown-menu-grid">
@@ -92,9 +99,11 @@
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalCenterTitle">Info</h5>
+                                        <h5 class="modal-title" id="exampleModalCenterTitle"><i
+                                                class="fa fa-exclamation-triangle" aria-hidden="true"></i></h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
+                                            <span aria-hidden="true"><i class="fa fa-times"
+                                                                        aria-hidden="true"></i></span>
                                         </button>
                                     </div>
                                     <div class="modal-body">

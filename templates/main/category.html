@@ -49,8 +49,9 @@ Welcome to layneblog!
             <small>
                 <i class="fa fa-eye" style="color: mediumseagreen;margin-right: 5px"
                    aria-hidden="true"></i>Browse: {{ article.views }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <i class="fa fa-user" style="color: skyblue;margin-right: 5px"
-                   aria-hidden="true"></i>Author: {{ article.author }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'main:visitview' article.author.id %}" style="color: dodgerblue">
+                    <i class="fa fa-user" style="color: skyblue;margin-right: 5px" aria-hidden="true"></i>
+                    <u>Author: {{ article.author }}</u></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <i class="fa fa-calendar" style="color: pink;margin-right: 5px"
                    aria-hidden="true"></i>Created: {{ article.created|date:"Y-m-d" }}
             </small>
@@ -68,10 +69,10 @@ Welcome to layneblog!
 <div class="container" style="width: 75%;padding:20px">
     <nav aria-label="Page navigation example">
         <ul class="pagination">
-            <li class="page-item"><a class="page-link" href='?cat_id={{ cat_id }}&page=1'>First</a></li>
+            <li class="page-item"><a class="page-link" href='?category={{ cat_id }}&page=1'>First</a></li>
             {% if page.has_previous %}
             <li class="page-item">
-                <a class="page-link" href="?cat_id={{ cat_id }}&page={{ page.previous_page_number }}"
+                <a class="page-link" href="?category={{ cat_id }}&page={{ page.previous_page_number }}"
                    aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
@@ -84,18 +85,18 @@ Welcome to layneblog!
             {% elif num == "..." %}
             <li><i class="page-link">{{ num }}</i></li>
             {% else %}
-            <li class="page-item"><a class="page-link" href="?cat_id={{ cat_id }}&page={{ num }}">{{ num }}</a></li>
+            <li class="page-item"><a class="page-link" href="?category={{ cat_id }}&page={{ num }}">{{ num }}</a></li>
             {% endif %}
             {% endfor %}
             {% if page.has_next %}
             <li class="page-item">
-                <a class="page-link" href="?cat_id={{ cat_id }}&page={{ page.next_page_number }}" aria-label="Next">
+                <a class="page-link" href="?category={{ cat_id }}&page={{ page.next_page_number }}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
             {% endif %}
             <li class="page-item"><a class="page-link"
-                                     href="?cat_id={{ cat_id }}&page={{ paginator.num_pages }}">Last</a>
+                                     href="?category={{ cat_id }}&page={{ paginator.num_pages }}">Last</a>
             </li>
         </ul>
     </nav>

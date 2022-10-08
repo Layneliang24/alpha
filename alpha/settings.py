@@ -128,5 +128,8 @@ MEDIA_URL = '/media/'  # 设置图片访问的统一路由，事关文章标题�
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 是否开启URL访问地址后面不为/跳转至带有/的路径的配置项
-APPEND_SLASH = True
+# APPEND_SLASH = True
 
+# --------------------------------------------------------------------------------------------------
+# mdeidtor上传照片配置
+X_FRAME_OPTIONS = 'SAMEORIGIN'  # django 3.0 + 默认为 deny

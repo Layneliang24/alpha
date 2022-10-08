@@ -11,6 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'bootstrap-4.4.1-dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <!--添加markdown编辑，重要-->
+    <link rel="stylesheet" href="{% static 'editor.md/css/editormd.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'editor.md/css/editormd.css' %}"/>
     <link href="{% static 'main/css/main.css' %}" rel="stylesheet"/>    <!--基础样式-->
     {% block link %}
     <!--自定义静态文件-->
@@ -25,7 +28,7 @@
 
 {% block content %} {# 输入父模板的接口名字 #}
 <!--页面主内容-->
-{% endblock %}
+{% endblock content%}
 
 {% block page %}
 <!--分页-->
@@ -43,5 +46,24 @@
 <script src="{% static 'jquery/jquery-3.6.1.min.js' %}"></script>
 <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
 <script src="{% static 'bootstrap-4.4.1-dist/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'editor.md/editormd.min.js' %}"></script>
+<script src="{% static 'editor.md/languages/en.js' %}"></script>
+<script type="text/javascript"> <!--mdeditor的脚本文件必须放这里才有效，不知道为何-->
+    $(function() {
+        var editor = editormd("editormd", {     // 这就是上面body字段的id值
+            path : "{% static 'mdeditor/js/lib/' %}", // Autoload modules mode, codemirror, marked... dependents libs path
+            // width : "1000px",  //设置宽度
+            placeholder : "Enter your FAQ \n tips: \n 1.support markdown text! \n 2.when uploading photo, make the size little than 800 X 448",  // 输入框提示文字
+            height : 620, //设置高度
+            syncScrolling : "single",  //options: true | false | "single", default true
+            imageUpload    : true,
+            imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "/mdeditor/uploads/",   //注意你后端的上传图片服务地址，我也搞不清楚这个地址在哪。
+            saveHTMLToTextarea : true,
+            emoji: true,
+        });
+    });
+
+</script>
 </body>
 </html>

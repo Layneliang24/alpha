@@ -64,7 +64,11 @@ Welcome to layneblog!
     {% endif %}
     <hr>
     <small><i>Created: {{ article.created|date:"Y-m-d" }}</i></small><br>
-    <small><i>Author: {{ article.author }}</i></small><br>
+    <a href="{% url 'main:visitview' article.author.id %}" style="color: dodgerblue">
+        <small>
+            <i>Author: {{ article.author }}</i>
+        </small>
+    </a><br>
     <small><i>Browse: {{ article.views }}</i></small>
 </div>
 

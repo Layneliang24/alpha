@@ -1,0 +1,69 @@
+{% extends 'usebootstrap.html' %}
+{% load static %}
+
+{% block title %} Edit Your Profile {% endblock title %}
+
+{% block content %}
+<div class="container" style="padding: 20px">
+    <div class="col">
+        <form class="form-login" action="{% url 'home:profile' %}" enctype="multipart/form-data" method="post">
+            <!--必须添加enctype="multipart/form-data"才可以上传照片，不然又排查半天！！！！！！！！！！！！-->
+            {% if good_message %}
+            <div class="alert alert-success">{{ good_message }}</div>
+            {% elif bad_message%}
+            <div class="alert alert-danger">{{ bad_message }}</div>
+            {% endif %}
+            {% csrf_token %}
+<!--            <h3 class="text-center">Complete your profile!</h3>-->
+            <div class="form-group">
+                <label style="display:inline">Username: </label>
+                <b>{{ profile.user.username }}</b>
+            </div>
+            <div>
+                <lable>{{ form.gender.label_tag }}</lable>
+                <select class="form-control" name="gender">
+                    <option>{{ profile.gender }}</option>
+                    <option>female</option>
+                    <option>male</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>{{ form.nickname.label_tag }}</label>
+                <input type="text" class="form-control" name="nickname" value="{{ profile.nickname }}">
+            </div>
+            <div class="form-group">
+                {{ form.phone.label_tag }}
+                <input type="text" class="form-control" name="phone" value="{{ profile.phone }}">
+            </div>
+            <div class="form-group">
+                {{ form.resume.label_tag }}
+                <textarea class="form-control" name="resume">{{ profile.resume }}</textarea>
+                <!--name属性一定要和表单的字段一致，不然表单会无效，又排查半天！！！！！！-->
+            </div>
+            <div class="form-group">
+                {{ form.portrait.label_tag }}<br/>
+                <img class="rounded-circle" src="{{ profile.portrait.url }}" style="width: 200px;height: 200px"/>
+                <div style="margin-top: 10px;">
+                    <small>upload:</small>
+                    <input type="file" name="portrait" accept="image/*">
+                </div>
+            </div>
+
+            <div style="margin-bottom: 60px;">
+                <a href="{% url 'home:center' %}" class="text-success">
+                    <ins>Back</ins>
+                </a>
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px;float: right;">Modify</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+{% block footer %} {# 输入父模板的接口名字 #}
+<div class="footer mt-1 py-1 text-center">
+    <div class="container">
+        <span class="text-muted"><i class="fa fa-copyright" aria-hidden="true"></i>Copyright @layne</span>
+    </div>
+</div>
+{% endblock footer %}

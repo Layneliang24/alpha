@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('captcha/', include('captcha.urls')),  # 图形验证码功能。要在主项目下添加。
-                  re_path(r'mdeditor/', include('mdeditor.urls')),  # 为实现markdown功能，不清楚有啥异常
+                  path('mdeditor/', include('mdeditor.urls')),  # 为实现markdown功能，不清楚有啥异常
                   re_path(r'^login/', include(('login.urls', 'login'), namespace='login')),  # 将路由分发给下面的app处理
                   re_path(r'^home/', include(('home.urls', 'home'), namespace='home')),
                   re_path(r'^post/', include(('post.urls', 'post'), namespace='post')),
