@@ -6,3 +6,91 @@
 {% block title %}
 Welcome to layneblog!
 {% endblock %}
+
+{% block content %} {# 输入父模板的接口名字 #}
+<div class="container" style="width: 75%;padding-bottom:0px">
+    <br>
+    <h3>Search result for "<font style="color: red;">{{ keyword }}</font>"</h3>
+    <br>
+</div>
+<!-- content，文章列表部分 -->
+<div class="container shadow-sm overflow-auto" style="width:75%;max-height: 665px;margin-top:20px;padding:5px 20px;">
+    <!-- 列表循环 -->
+    {% for article in page %}
+    <!-- 文章内容 -->
+    <div class="border border-light row shadow p-3 mb-5 bg-white rounded" style="position: sticky;top: 0;">
+        <!-- 标题图 -->
+        <div class="col-3">
+            <img class="img-responsive"
+                 src="{{ article.avatar.url }}"
+                 alt="avatar" style="max-width:100%;max-height: 155px; border-radius: 20px">
+        </div>
+        <!--文字部分-->
+        <div class="col">
+            <!-- 栏目 -->
+            <a role="button" href="{% url 'main:categoryview' %}/?category={{ article.category.id }}"
+               class="btn btn-sm mb-2 btn-warning">{{ article.category.title }}</a>
+            <!-- 标签 -->
+            <span>
+                <a href="#" class="badge badge-secondary">{{ article.tag }}</a>
+            </span>
+            <!--标题-->
+            <h4>
+                <b><a href="{% url 'main:articleview' article.id %}" style="color: black;">{{ article.title }}</a></b>
+            </h4>
+            <!--摘要-->
+            <div>
+                <p style="color: gray;">
+                    {{ article.sumary }}
+                </p>
+            </div>
+            <small>浏览：{{ article.views }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                创建日期：{{ article.created|date:"Y-m-d" }}</small>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}
+
+<!----------------------------页码---------------------------->
+
+{% block page %}
+
+<div class="container" style="width: 75%;padding:20px">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="?keyword={{ keyword }}&page=1">First</a></li>
+            {% if page.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?keyword={{ keyword }}&page={{ page.previous_page_number }}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% else %}
+            {% endif %}
+            {% for num in page_range %}
+            {% if num == page.number %}
+            <li class="page-item"><a class="page-link" href="#" style="color: red;">{{ num }}</a></li>
+            {% elif num == "..." %}
+            <li><i class="page-link">{{ num }}</i></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?keyword={{ keyword }}&page={{ num }}">{{ num }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if page.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?keyword={{ keyword }}&page={{ page.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+            <li class="page-item"><a class="page-link"
+                                     href="?keyword={{ keyword }}&page={{ paginator.num_pages }}">Last</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+{% endblock page %}

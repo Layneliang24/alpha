@@ -49,9 +49,15 @@ Welcome to layneblog!
             <small>
                 <i class="fa fa-eye" style="color: mediumseagreen;margin-right: 5px"
                    aria-hidden="true"></i>Browse: {{ article.views }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="{% url 'main:visitview' article.author.id %}" style="color: dodgerblue">
+                {% if article.author == request.user %}
+                <a href="{% url 'home:center' %}" style="color: dodgerblue">
+                    <i class="fa fa-user" style="color: skyblue;margin-right: 5px" aria-hidden="true"></i>
+                    <small>Author: {{ article.author }}</small></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {% else %}
+                <a href="{% url 'main:visitarticleview' article.author.id %}" style="color: dodgerblue">
                     <i class="fa fa-user" style="color: skyblue;margin-right: 5px" aria-hidden="true"></i>
                     <u>Author: {{ article.author }}</u></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {% endif %}
                 <i class="fa fa-calendar" style="color: pink;margin-right: 5px"
                    aria-hidden="true"></i>Created: {{ article.created|date:"Y-m-d" }}
             </small>
@@ -66,7 +72,7 @@ Welcome to layneblog!
 
 {% block page %}
 
-<div class="container" style="width: 75%;padding:20px">
+<div class="container" style="width: 75%;padding: 20px">
     <nav aria-label="Page navigation example">
         <ul class="pagination">
             <li class="page-item"><a class="page-link" href='?category={{ cat_id }}&page=1'>First</a></li>

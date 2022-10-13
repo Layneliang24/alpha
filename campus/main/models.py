@@ -18,7 +18,7 @@ class MainCategory(models.Model):
         return self.title
 
     class Meta:
-        ordering = ["-created"]
+        ordering = ["created"]
 
 
 class SubCategory(models.Model):
@@ -106,6 +106,8 @@ class File(models.Model):
     name = models.CharField(max_length=200)
     # 文件保存路径
     path = models.CharField(max_length=100)
+    # 介绍
+    description = models.CharField(max_length=200, default='the author is lazy, didn\'t give any information')
     # 上传时间
     upload_time = models.DateTimeField(default=timezone.now)
 
@@ -122,6 +124,8 @@ class Link(models.Model):
     name = models.CharField(max_length=200)
     # 链接地址
     url = models.URLField(max_length=200, default=None)
+    # 介绍
+    description = models.CharField(max_length=200, default='the author is lazy, didn\'t give any introduction')
     # 上传作者
     author = models.ForeignKey(User, on_delete=models.CASCADE, default='admin')
     # 上传时间

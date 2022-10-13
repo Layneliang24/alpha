@@ -1,0 +1,54 @@
+{% extends 'usebootstrap.html' %}
+{% load static %}
+
+{% block title %} Edit your Link {% endblock title %}
+
+{% block content %}
+<div style="width:80%;padding:20px;" class="container">
+    <div class="col">
+        <form enctype="multipart/form-data" action="{% url 'home:edit_link' link.id %}" method="post" novalidate>
+            {% csrf_token %}
+
+            {% if good_message %}
+            <div class="alert alert-success">{{ good_message }}</div>
+            {% elif bad_message %}
+            <div class="alert alert-danger">{{ bad_message }}</div>
+            {% endif %}
+
+            <h3 style="padding-bottom:20px;">Edit Your Link</h3>
+
+            <div class="form-group" style="color:black; background-color: ;">
+                {{ form.name.label_tag }}
+                <input type="text" class="form-control" name="name" value="{{ link.name }}">
+                {% if form.name.errors %}
+                <div class="alert alert-danger" style="margin: 5px;padding 0px;">{{ form.name.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group" style="color:black;">
+                {{ form.url.label_tag }}
+                <input type="text" class="form-control" name="url" value="{{ link.url }}">
+                {% if form.url.errors %}
+                <div class="alert alert-danger" style="margin: 5px;padding 0px;">{{ form.url.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group" style="color:black;">
+                {{ form.description.label_tag }}
+                <input type="text" class="form-control" name="description" value="{{ link.description }}">
+                {% if form.note.errors %}
+                <div class="alert alert-danger" style="margin: 5px;padding 0px;">{{ form.description.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 20px;">
+                <a href="{% url 'home:center' %}">
+                    <ins>Back</ins>
+                </a>
+                <button type="submit" class="btn btn-success float-right" style="width: 15%;">Post</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content%}

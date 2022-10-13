@@ -8,6 +8,6 @@ urlpatterns = [
     re_path('^$', views.empty),  # 正则匹配必须用re_path
     re_path('^post', views.post),
     re_path('^article', views.PostArticleView.as_view(), name='article'),
-    re_path('^file', views.file),
-    re_path('^link', views.link),
+    re_path('^file', views.PostFileView.as_view(), name='file'),
+    re_path('^link', views.PostLinkView.as_view(), name='link'),
 ]

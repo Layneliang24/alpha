@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 <head>
     <title>
         {% block title %}
@@ -10,16 +10,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'bootstrap-4.4.1-dist/css/bootstrap.min.css' %}">
+    <!--引入font-awesome-->
     <link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
     <!--添加markdown编辑，重要-->
     <link rel="stylesheet" href="{% static 'editor.md/css/editormd.min.css' %}"/>
     <link rel="stylesheet" href="{% static 'editor.md/css/editormd.css' %}"/>
-    <link href="{% static 'main/css/main.css' %}" rel="stylesheet"/>    <!--基础样式-->
+    <!--基础样式-->
+    <link href="{% static 'main/css/main.css' %}" rel="stylesheet"/>
     {% block link %}
     <!--自定义静态文件-->
     {% endblock link %}
 </head>
-<body>
+<body class="d-flex flex-column h-100">
+<main role="main" class="flex-shrink-0">
 <!--写入自定义内容-->
 
 {% block nav %} {# 开放接口，且命名为content #}
@@ -33,6 +36,8 @@
 {% block page %}
 <!--分页-->
 {% endblock page %}
+
+</main>
 
 {% block footer %}
 <!--页脚-->
@@ -63,7 +68,6 @@
             emoji: true,
         });
     });
-
 </script>
 </body>
 </html>

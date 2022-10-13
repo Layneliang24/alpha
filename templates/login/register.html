@@ -10,7 +10,7 @@
 {% block content %}
 <div class="container">
     <div class="col">
-        <form class="form-login" action="{% url 'login:register' %}" method="post">
+        <form class="form-login form-register" action="{% url 'login:register' %}" method="post">
             {% if good_message %}
             <div class="alert alert-success">{{ good_message }}</div>
             {% elif bad_message%}
@@ -23,7 +23,7 @@
                 {{ field.label_tag }}
                 {{ field }}
                 {% if field.errors %}
-                <div class="alert alert-danger" style="margin: 5px;padding 0px;">{{ field.errors }}</div>
+                <div style="margin: 10px;padding 5px;color: red;">{{ field.errors }}</div>
                 {% endif %}
             </div>
             {% endfor %}

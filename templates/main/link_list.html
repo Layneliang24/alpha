@@ -1,0 +1,90 @@
+{% extends 'main/footer.html' %}
+{% load static %}
+
+{% block title %}
+link list
+{% endblock %}
+
+{% block content %} {# 输入父模板的接口名字 #}
+<div style="width: 85%;padding: 20px;margin: 0 auto;">
+    <form class="form-inline my-2 my-lg-2" action="{% url 'main:searchlinklistview' %}" method="get">
+        {% csrf_token %}
+        <input class="form-control" type="text" placeholder="Search" value="{{ keyword }}" name="keyword"
+               aria-label="Search">
+        <button class="btn btn-secondary border border-success" type="submit">
+            <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+    </form>
+    <table class="table table-striped table-sm table-bordered table-hover" style="text-align: center;width: 100%;">
+        <thead class="thead-light">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Uploader</th>
+            <th>Visit</th>
+        </tr>
+        </thead>
+        {% for link in page %}
+        <tr>
+            <td>{{ link.name }}</td>
+            <td>{{ link.description }}</td>
+            {% if article.author == request.user %}
+            <td>
+                <a href="{% url 'home:center' %}">{{ link.author }}</a>
+            </td>
+            {% else %}
+            <td>
+                <a href="{% url 'main:visitarticleview' link.author.id %}" style="color: dodgerblue">
+                {{ link.author }}</a>
+            </td>
+            {% endif %}
+            <td>
+                <a href="{{ link.url }}" style="color: yellowgreen;">
+                    <i class="fa fa-external-link" aria-hidden="true"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock content %}
+
+{% block page %}
+<div class="container" style="width: 75%;padding: 20px">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href='?page=1'>First</a></li>
+            {% if page.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?keyword={{ keyword }}&page={{ page.previous_page_number }}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% else %}
+            {% endif %}
+            {% for num in page_range %}
+            {% if num == page.number %}
+            <li class="page-item"><a class="page-link" href="#" style="color: red;">{{ num }}</a></li>
+            {% elif num == "..." %}
+            <li><i class="page-link">{{ num }}</i></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?keyword={{ keyword }}&page={{ num }}">{{ num }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% if page.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?keyword={{ keyword }}&page={{ page.next_page_number }}"
+                   aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+            <li class="page-item"><a class="page-link"
+                                     href="?keyword={{ keyword }}&page={{ paginator.num_pages }}">Last</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+{% endblock page %}

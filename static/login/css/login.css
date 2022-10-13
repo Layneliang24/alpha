@@ -1,6 +1,7 @@
 body {
   height: 100%;
-  background-image: url('../image/bg.jpg');
+  background-image: url('../image/ball.gif');
+  background-size: cover;
 }
 
 .container {            /*让块元素居中对齐*/
@@ -8,6 +9,9 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 65%;           /* 主界面控制大小*/
+  opacity: 95%;
+  color: blck;
 }
 
 .form-login {
@@ -18,16 +22,16 @@ body {
 }
 
 .form-login{
-  margin-top:80px;
+  margin-top: 0px;
   font-weight: 400;
 }
 
 .form-login .form-control {
-  position: relative=
+  position: relative;
   box-sizing: border-box;
   height: auto;
   padding: 10px;
-  font-size: 16px;
+  font-size: 1rem;
 
 }
 .form-login .form-control:focus {
@@ -46,7 +50,7 @@ body {
 }
 form a{
   display: inline-block;
-  margin-top:25px;
+  margin-top: 0px;
   font-size: 15px;
   line-height: 10px;
 }
@@ -60,10 +64,22 @@ width: 100%;
 }
 
 #register-button {
-margin-top: 10px;
+margin-top: 0px;
 float: right;
 }
 
 #button{
 text-align: center;
 }
+
+.form-register {
+    color: white;
+}
+
+.
+/*ZK-Surabaya......文字
+.text-title {
+    font: italic 2em Georgia, serif;
+    color: black;
+    height: 0%;
+}*/

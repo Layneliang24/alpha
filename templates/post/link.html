@@ -1,0 +1,37 @@
+{% extends 'usebootstrap.html' %}
+{% load static %}
+
+{% block title %} Post your Link {% endblock title %}
+
+{% block content %}
+
+<div style="width:80%;padding:20px;" class="container">
+    <div class="col">
+        <form enctype="multipart/form-data" action="{% url 'post:link' %}" method="post" novalidate>
+            {% csrf_token %}
+            {% if good_message %}
+            <div class="alert alert-success">{{ good_message }}</div>
+            {% elif bad_message %}
+            <div class="alert alert-danger">{{ bad_message }}</div>
+            {% endif %}
+            <h3 style="padding-bottom:20px;">Post Your Link</h3>
+            {% for file in form %}
+            <div class="form-group" style="color:black;">
+                {{ file.label_tag }}
+                {{ file }}
+                {% if file.errors %}
+                <div class="alert alert-danger" style="margin: 5px;padding 0px;">{{ file.errors }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <div style="margin-top: 20px;">
+                <a href="{% url 'home:center' %}">
+                    <ins>Back</ins>
+                </a>
+                <button type="submit" class="btn btn-success float-right" style="width: 15%;">Post</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

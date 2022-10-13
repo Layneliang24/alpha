@@ -49,25 +49,78 @@ class PostArticleView(View):
             # 遍历写入到数据库中
             for f in request.FILES.getlist('file'):
                 # 写入到数据库中
-                file_model = models.File(article=new_article, name=f.name,
-                                         path=os.path.join('./media/upload', f.name))
-                file_model.save()
-
+                file = models.File(article=new_article, name=f.name, author=User.objects.get(id=request.user.id),
+                                   path=os.path.join('./media/upload', f.name))
+                file.save()
                 # 写入到服务器本地
                 destination = open(os.path.join("./media/upload", f.name), 'wb+')
                 for chunk in f.chunks():
                     destination.write(chunk)
                 destination.close()
             good_message = 'Post success! well done, Keep on the good work!'
+            return render(request, 'home/edit_success.html', locals())
+        else:
+            bad_message = "Opts! something wrong"
+            return render(request, self.template_name, locals())
+
+
+@method_decorator(login_required(login_url="login:login"), name='dispatch')
+class PostFileView(View):
+    form_class = forms.PostFileForm  # 重写表单
+    template_name = 'post/file.html'  # 重写模板位置
+    initial = {'key': 'value'}
+
+    def get(self, request):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, locals())
+
+    def post(self, request):
+        form = self.form_class(request.POST, request.FILES)
+        if form.is_valid():
+            files = request.FILES.getlist('file')
+            for file in files:
+                # 写入到数据库中
+                new_file = models.File(author=User.objects.get(id=request.user.id), name=file.name,
+                                       path=os.path.join('./media/upload', file.name))  # 实例化新文件
+                description = form.cleaned_data.get('description')
+                new_file.description = description
+                new_file.save()
+                # 写入到服务器本地
+                destination = open(os.path.join("./media/upload", file.name), 'wb+')
+                for chunk in file.chunks():
+                    destination.write(chunk)
+                destination.close()
+            good_message = 'Success!'
             return render(request, self.template_name, locals())
         else:
             bad_message = "Opts! something wrong"
             return render(request, self.template_name, locals())
 
 
-def file(request):
-    return HttpResponse("发布文件")
+@method_decorator(login_required(login_url="login:login"), name='dispatch')
+class PostLinkView(View):
+    form_class = forms.PostLinkForm  # 重写表单
+    template_name = 'post/link.html'  # 重写模板位置
+    initial = {'key': 'value'}
 
+    def get(self, request):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, locals())
 
-def link(request):
-    return HttpResponse("发布链接")
+    def post(self, request):
+        form = self.form_class(request.POST, request.FILES)
+        if form.is_valid():
+            author = User.objects.get(id=request.user.id)
+            name = form.cleaned_data.get('name')
+            url = form.cleaned_data.get('url')
+            description = form.cleaned_data.get('description')
+            new_link = models.Link()  # 实例化新的链接
+            new_link.author = author
+            new_link.name = name
+            new_link.url = url
+            new_link.description = description
+            new_link.save()
+            good_message = 'Success!'
+            return render(request, self.template_name, locals())
+        else:
+            return render(request, self.template_name, locals())

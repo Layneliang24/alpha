@@ -9,7 +9,7 @@ from . import models
 
 
 def empty(request):
-    return redirect('/login/login')
+    return redirect('/main/')
 
 
 def confirm(request):

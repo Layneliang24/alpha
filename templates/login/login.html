@@ -8,38 +8,45 @@
 {% endblock link %}
 
 {% block content %}
-<div class="container">
-    <div class="col">
-        <form class="form-login" action="{% url 'login:login' %}" method="post">
-            {% if message %}
-            <div class="alert alert-danger">{{ message }}</div>
-            {% endif %}
-            {% csrf_token %}
-            <h3 class="text-center">Login</h3>
-            {% for field in form %}
-            <div class="form-group">
-                {{ field.label_tag }}
-                {{ field }}
-                {% if field.errors %}
-                <div class="alert alert-danger" style="margin: 10px;padding 5px;">{{ field.errors }}</div>
+<div class="shadow-lg p-0 mb-0 rounded bg-light container">
+    <div class="">
+        <div style="float:left;width:65%;">
+            <img src="/static/login/image/ac.png" style="width:100%;">
+        </div>
+        <div style="float:right;width:35%;">
+            <form class="form-login" action="{% url 'login:login' %}" method="post">
+                <p class="text-center text-title" style="font: italic 1.5rem Georgia, serif;">Surabaya FAQ Platform</p>
+                {% if message %}
+                <div class="alert alert-danger">{{ message }}</div>
                 {% endif %}
-            </div>
-            {% endfor %}
-            <div id="button">
-                <button type="submit" class="btn btn-primary" id="login-button">Login</button>
-            </div>
-            <br>
-            <div class="text-center">Don't have an account?
-                <a href="{% url 'login:register' %}" class="text-success">
-                    <ins>Sign up</ins>
-                </a>
-            </div>
-        </form>
+                {% csrf_token %}
+                <h5 class="text-center">Login</h5>
+                {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                    <div style="margin: 10px;padding 5px;color: red;">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <div id="button">
+                    <button type="submit" class="btn btn-primary" id="login-button">Login</button>
+                </div>
+                <br>
+                <div class="text-center">Don't have an account?
+                    <a href="{% url 'login:register' %}" class="text-success">
+                        <ins>Sign up</ins>
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
 </div> <!-- /container -->
 {% endblock content %}
 
 {% block script %}
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <script>
     $('img.captcha').attr("title", "点击更换验证码");
     $('img.captcha').click(function() {

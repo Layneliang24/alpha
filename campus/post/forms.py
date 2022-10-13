@@ -23,18 +23,49 @@ class PostArticleForm(forms.ModelForm):
 
     def clean_title(self):
         title = self.cleaned_data.get('title')
-        if len(title) > 35:
+        if len(title) > 100:
             raise forms.ValidationError("Your title is too long!")
         return title
 
     def clean_tag(self):
         tag = self.cleaned_data.get('tag')
-        if len(tag) > 15:
+        if len(tag) > 150:
             raise forms.ValidationError("Your tag is too long!")
         return tag
 
     def clean_summary(self):
         summary = self.cleaned_data.get('summary')
-        if len(summary) > 55:
+        if len(summary) > 150:
             raise forms.ValidationError("Your summary is too long!")
         return summary
+
+
+class PostFileForm(forms.ModelForm):
+    class Meta:
+        model = models.File
+        fields = ['description']
+
+    description = forms.CharField(label='Description', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': "ex: Firmware for visiblelight"}))
+    file = forms.FileField(required=True, label='Please choose files',
+                           widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
+
+class PostLinkForm(forms.ModelForm):
+    class Meta:
+        model = models.Link
+        fields = ['name', 'url', 'description']
+
+    name = forms.CharField(label='Name', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': "ZKTeco official website"}))
+    description = forms.CharField(label='Description', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': "ZKTeco official website"}))
+    url = forms.URLField(label='URL',
+                         widget=forms.URLInput(
+                             attrs={'class': 'form-control', 'placeholder': "https://www.zkteco.com/en/"}))
+
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        if len(name) > 100:
+            raise forms.ValidationError("Your Link name is too long!")
+        return name

@@ -4,7 +4,7 @@
 <!---------------------------页面标题----------------------------->
 
 {% block title %}
-Welcome to layneblog!
+Welcome to FAQ Platform!
 {% endblock %}
 
 <!---------------------------静态资源----------------------------->
@@ -72,7 +72,7 @@ Welcome to layneblog!
                         </div>
                     </div>
                     {% for i in latest %}
-                    {% if forloop.first %}      {# 如果是第一个，那就跳过，避免重复 #}
+                    {% if forloop.first %} {# 如果是第一个，那就跳过，避免重复 #}
                     {% else %}
                     <!--其他-->
                     <div class="carousel-item">
@@ -110,19 +110,20 @@ Welcome to layneblog!
         <div class="card-header">
             <div style="float: left"><b>Downloads</b></div>
             <div style="float: right">
-                <a href="/download/" style="color: grey"><i class="fa fa-hand-o-right" aria-hidden="true"></i>
-                    More>>></a>
+                <a href="{% url 'main:filelistview' %}" style="color: grey">
+                    <i class="fa fa-hand-o-right" aria-hidden="true"></i>&nbsp;More>>>
+                </a>
             </div>
         </div>
         <div class="card-body">
             <ul class="list-group">
                 {% for i in file_list %}
-                <li class="list-group-item">
+                <li class="list-group-item" style="padding: 10px;">
                     <div style="float: left">
                         {{ i.name }}
                     </div>
-                    <div style="float: right">
-                        <a href="/{{ i.path }}">[download]</a>
+                    <div style="float: right;margin-right: 20px;">
+                        <a href="/{{ i.path }}"><i class="fa fa-download" aria-hidden="true"></i></a>
                     </div>
                 </li>
                 {% endfor %}
@@ -134,7 +135,9 @@ Welcome to layneblog!
         <div class="card-header">
             <div style="float: left"><b>Links</b></div>
             <div style="float: right">
-                <a href="/link/" style="color: grey"><i class="fa fa-hand-o-right" aria-hidden="true"></i> More>>></a>
+                <a href="{% url 'main:linklistview' %}" style="color: grey">
+                    <i class="fa fa-hand-o-right" aria-hidden="true"></i>&nbsp;More>>>
+                </a>
             </div>
         </div>
         <div class="card-body">
@@ -145,7 +148,6 @@ Welcome to layneblog!
             {% endfor %}
         </div>
     </div>
-
 </div>
 <br>
 
