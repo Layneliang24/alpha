@@ -141,6 +141,7 @@ class ArticleView(NavView, DetailView):
                 'markdown.extensions.codehilite',
                 # 目录扩展
                 'markdown.extensions.toc',
+                'markdown.extensions.tables',
             ]
         )
         article.body = md.convert(article.body)
@@ -289,7 +290,7 @@ class SearchView(CategoryView):
     def get_queryset(self):  # 重写get_queryset方法
         keyword = self.request.GET.get('keyword')
         if keyword:  # 获取搜索的关键词
-            articles = models.Article.objects.filter(title__icontains=keyword)      # 加i不区分大小写
+            articles = models.Article.objects.filter(title__icontains=keyword)  # 加i不区分大小写
             page, paginator, page_range = self.get_page(articles, 8)
             return locals()
         return locals()
@@ -354,8 +355,6 @@ class SearchLinkListView(SearchView):
         context = super().get_context_data(**kwargs)
         context['keyword'] = self.get_queryset().get('keyword')
         return context
-
-
 
 
 def files(request):

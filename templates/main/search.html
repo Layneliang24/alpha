@@ -41,11 +41,24 @@ Welcome to layneblog!
             <!--摘要-->
             <div>
                 <p style="color: gray;">
-                    {{ article.sumary }}
+                    {{ article.summary }}
                 </p>
             </div>
-            <small>浏览：{{ article.views }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                创建日期：{{ article.created|date:"Y-m-d" }}</small>
+            <small>
+                <i class="fa fa-eye" style="color: mediumseagreen;margin-right: 5px"
+                   aria-hidden="true"></i>Browse: {{ article.views }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {% if article.author == request.user %}
+                <a href="{% url 'home:center' %}" style="color: dodgerblue">
+                    <i class="fa fa-user" style="color: skyblue;margin-right: 5px" aria-hidden="true"></i>
+                    <small>Author: {{ article.author }}</small></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {% else %}
+                <a href="{% url 'main:visitarticleview' article.author.id %}" style="color: dodgerblue">
+                    <i class="fa fa-user" style="color: skyblue;margin-right: 5px" aria-hidden="true"></i>
+                    <u>Author: {{ article.author }}</u></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {% endif %}
+                <i class="fa fa-calendar" style="color: pink;margin-right: 5px"
+                   aria-hidden="true"></i>Created: {{ article.created|date:"Y-m-d" }}
+            </small>
         </div>
     </div>
     {% endfor %}
