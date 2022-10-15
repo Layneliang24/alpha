@@ -1,0 +1,91 @@
+hello, restart the services
+
+
+ok
+
+hello clean the brower cache
+
+you have done it haven't you ?
+not sure, it should show 24 deivces
+
+wait a minute, i found a problem on site
+
+there is no internet access for the biotime server
+does it has impact in upgrading process ?
+
+yes, can not use online activation , but i used offline activation, so it's same.
+
+yes i guess so 
+
+but why it didn't change yet ?
+wait, i will actvate again
+ok
+
+
+hello what is the passsword and account
+
+
+user account 	: LINTASARTA01
+Password	 :LAJatiluhur01
+
+
+
+hello , this is not the server, can you restar the biotime services on the server ?
+actually i have done it on the server 
+let me try again
+already?
+yes sir
+
+
+woulf you like to watch the video  
+							
+
+no , can i remote to the server ?
+
+
+there is obligation on site that people from outside are not allowed to remote it
+
+ok then 
+
+it's a pict from server
+
+its still same there is no changes 20/20
+ 		did you restart these services ? 
+no 
+i restart the service on desktop 
+let me try to restart those services ,
+ok restart all ther sevices start with bio-
+
+no changes its still same
+
+even i have restarted those all biotime windows services and biotime desktop restart
+				
+
+ok , there is another solution
+i need you to offline activation on the sever directly
+						
+
+follow the way that you have done it before ?
+
+can you send me xml file ?
+			
+ok , i will send you the -SN file, and then you genrate a UPK file and put it to this desktop.
+
+
+
+already put it on the desktop , please send me the UPK
+
+ok let me try
+
+here it is the upk file from the server
+ok , i will send you the -license.xml file, and then you offline activation on the server
+
+its still 20/20
+
+hmm, restart server -_-
+
+server or serivces or both ?
+sorry services
+
+ok wait
+

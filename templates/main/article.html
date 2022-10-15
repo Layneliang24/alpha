@@ -10,7 +10,7 @@ Welcome to layneblog!
 <!---------------------------静态资源----------------------------->
 {% block link %}
 <!--为代码高亮导入样式-->
-    <link rel="stylesheet" type="text/css" href="{% static 'main/css/highlights/zenburn.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'main/css/highlights/zenburn.css' %}">
 {% endblock link %}
 
 <!----------------------------页面内容---------------------------->
@@ -60,17 +60,18 @@ Welcome to layneblog!
     <hr>
     <small><i>Created: {{ article.created|date:"Y-m-d" }}</i></small><br>
     {% if article.author == request.user %}
-    <a href="{% url 'home:center' %}" style="color: dodgerblue">
-        <small>
-            <i>Author: {{ article.author }}</i>
-        </small>
-    </a><br>
+    <small>
+        <i>Author: <a href="{% url 'home:center' %}" style="color: dodgerblue">{{ article.author }}</a></i>
+    </small>
+    <br>
     {% else %}
-    <a href="{% url 'main:visitarticleview' article.author.id %}" style="color: dodgerblue">
-        <small>
-            <u>Author: {{ article.author }}</u>
-        </small>
-    </a><br>
+    <small>
+        Author:
+        <a href="{% url 'main:visitarticleview' article.author.id %}" style="color: dodgerblue">
+            {{ article.author }}
+        </a>
+    </small>
+    <br>
     {% endif %}
     <small><i>Browse: {{ article.views }}</i></small>
 </div>
